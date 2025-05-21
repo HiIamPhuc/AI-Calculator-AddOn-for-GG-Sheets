@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <style>
+      :root {
+        --primary: #4285F4;
+        --primary-dark: #3367D6;
+        --success: #0F9D58;
+        --warning: #F4B400;
+        --error: #DB4437;
+        --surface: #FFFFFF;
+        --background: #F8F9FA;
+        --text-primary: #202124;
+        --text-secondary: #5F6368;
+        --border: #DADCE0;
+        --shadow-sm: 0 1px 2px rgba(60, 64, 67, 0.1);
+        --shadow-md: 0 2px 6px rgba(60, 64, 67, 0.15);
+        --radius: 8px;
+        --transition: all 0.2s ease;
+        --spacing: 8px;
+      }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      background-color: var(--background);
+      line-height: 1.5;
+      font-size: 14px;
+      margin: 0;
+      padding: var(--spacing);
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: calc(var(--spacing) * 2);
+      margin-bottom: calc(var(--spacing) * 3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-icon {
+      color: var(--primary);
+      background-color: rgba(66, 133, 244, 0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-text h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+      color: var(--text-primary);
+    }
+
+    .header-text p {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      margin-bottom: calc(var(--spacing) * 2);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      border: 1px solid var(--border);
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-header {
+      padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 2);
+      background-color: rgba(66, 133, 244, 0.05);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing);
+    }
+
+    .card-header .material-icons-round {
+      color: var(--primary);
+      font-size: 18px;
+    }
+
+    .card-header h2 {
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0;
+      color: var(--primary);
+    }
+
+    .card-body {
+      padding: calc(var(--spacing) * 2);
+    }
+
+    .form-group {
+      margin-bottom: calc(var(--spacing) * 2);
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: calc(var(--spacing) / 2);
+      color: var(--text-secondary);
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) / 2);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--text-primary);
+      background-color: var(--surface);
+      transition: var(--transition);
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    select {
+      background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L13 1" stroke="%235F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+      appearance: none;
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      margin-top: var(--spacing);
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+      margin-right: 10px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--border);
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .toggle-slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .toggle-slider:before {
+      transform: translateX(16px);
+    }
+
+    .radio-group {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) / 2);
+      overflow: hidden;
+      margin-bottom: calc(var(--spacing) * 2);
+    }
+
+    .radio-option {
+      flex: 1;
+    }
+
+    .radio-option input[type="radio"] {
+      display: none;
+    }
+
+    .radio-option label {
+      display: block;
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+      margin: 0;
+      color: var(--text-primary);
+      font-weight: 400;
+      transition: var(--transition);
+    }
+
+    .radio-option input[type="radio"]:checked + label {
+      background-color: var(--primary);
+      color: white;
+      font-weight: 500;
+    }
+
+    .range-fields {
+      display: flex;
+      gap: var(--spacing);
+      align-items: center;
+    }
+
+    .range-fields input {
+      flex: 1;
+    }
+
+    .range-fields span {
+      color: var(--text-secondary);
+    }
+
+    .btn-primary {
+      display: block;
+      width: 100%;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: calc(var(--radius) / 2);
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+      margin: calc(var(--spacing) * 2) 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary .material-icons-round {
+      font-size: 16px;
+      margin-right: 8px;
+      vertical-align: text-bottom;
+    }
+
+    .status {
+      padding: 12px;
+      border-radius: calc(var(--radius) / 2);
+      margin-top: calc(var(--spacing) * 2);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      display: none;
+    }
+
+    .status.success {
+      background-color: rgba(15, 157, 88, 0.1);
+      color: var(--success);
+      display: flex;
+    }
+
+    .status.error {
+      background-color: rgba(219, 68, 55, 0.1);
+      color: var(--error);
+      display: flex;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: calc(var(--spacing) * 2) 0;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(66, 133, 244, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .help-tooltip {
+      position: relative;
+      display: inline-block;
+      margin-left: 4px;
+      cursor: help;
+    }
+
+    .help-tooltip .material-icons-round {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .help-tooltip .tooltip-text {
+      visibility: hidden;
+      width: 200px;
+      background-color: var(--text-primary);
+      color: white;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 12px;
+      pointer-events: none;
+    }
+
+    .help-tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .help-tooltip .tooltip-text::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--text-primary) transparent transparent transparent;
+    }
+
+    .placeholder {
+      background-color: rgba(66, 133, 244, 0.1);
+      color: var(--primary);
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: calc(var(--spacing) * 3);
+      padding-top: calc(var(--spacing) * 2);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Dependent field display logic */
+    #autoOptions, #rangeOptions {
+      display: none;
+    }
+
+    #autoOptions.active, #rangeOptions.active {
+      display: block;
+      margin-top: calc(var(--spacing) * 2);
+    }
+
+    /* Highlight the variable placeholder in the prompt */
+    #highlightedPrompt {
+      background-color: rgba(244, 180, 0, 0.1);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) / 2);
+      padding: 8px;
+      margin-top: 8px;
+      font-size: 12px;
+      max-height: 60px;
+      overflow-y: auto;
+    }
+  </style>
+    </head>
+    <body>
+      <div class="header">
+        <div class="header-icon">
+          <span class="material-icons-round">calculate</span>
+        </div>
+        <div class="header-text">
+          <h1>AI-Powered Calculator</h1>
+          <p>Process data with AI assistance</p>
+        </div>
+      </div>
+  <div class="card">
+    <div class="card-header">
+      <span class="material-icons-round">settings</span>
+      <h2>Basic Configuration</h2>
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <label for="headerRow">
+          Header Row
+          <span class="help-tooltip">
+            <span class="material-icons-round">help_outline</span>
+            <span class="tooltip-text">Specify which row contains your column headers</span>
+          </span>
+        </label>
+        <input type="number" id="headerRow" min="1" value="1">
+      </div>
+
+      <div class="form-group">
+        <label for="promptTemplate">
+          Prompt Template
+          <span class="help-tooltip">
+            <span class="material-icons-round">help_outline</span>
+            <span class="tooltip-text">Use {{ColumnName}} to insert values from specific columns</span>
+          </span>
+        </label>
+        <textarea id="promptTemplate" placeholder="Example: Analyze the following data: Customer: {{Customer}}, Amount: {{Amount}}. Provide a brief summary."></textarea>
+        <div id="highlightedPrompt"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="model">AI Model</label>
+        <select id="model">
+          <option value="gpt-4o-mini">GPT-4o Mini (Faster)</option>
+          <option value="gpt-4o">GPT-4o (More Powerful)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="resultColumn">Results Column</label>
+        <select id="resultColumn">
+          <option value="">Loading columns...</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="material-icons-round">view_list</span>
+      <h2>Data Selection</h2>
+    </div>
+    <div class="card-body">
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" id="autoMode" name="startMode" value="auto" checked>
+          <label for="autoMode">Auto</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="fixedMode" name="startMode" value="fixed">
+          <label for="fixedMode">Fixed Range</label>
+        </div>
+      </div>
+
+      <div id="autoOptions" class="active">
+        <div class="form-group">
+          <label for="numberOfRows">Number of Rows to Process</label>
+          <input type="number" id="numberOfRows" min="1" value="3">
+        </div>
+        
+        <div class="toggle-container">
+          <label class="toggle-switch">
+            <input type="checkbox" id="allRowsToggle">
+            <span class="toggle-slider"></span>
+          </label>
+          <span>Process All Rows</span>
+        </div>
+      </div>
+
+      <div id="rangeOptions">
+        <div class="form-group">
+          <label for="startRow">Start Row</label>
+          <input type="number" id="startRow" min="2" value="2">
+        </div>
+        <div class="form-group">
+          <label for="endRow">End Row</label>
+          <input type="number" id="endRow" min="2" value="5">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button id="processButton" class="btn-primary">
+    <span class="material-icons-round">play_arrow</span>
+    Process Data
+  </button>
+
+  <div id="loadingIndicator" class="loading">
+    <div class="spinner"></div>
+    <p>Processing your data...</p>
+  </div>
+
+  <div id="statusMessage" class="status success">
+    <span class="material-icons-round">check_circle</span>
+    <span id="statusText">Processing complete!</span>
+  </div>
+
+  <div class="footer">
+    <p>AI-Powered Calculator v1.0</p>
+  </div>
+
+  <script>
+    // Initialize UI when loaded
+    window.onload = function() {
+      // Load column headers
+      google.script.run.withSuccessHandler(function(headers) {
+        const resultColumn = document.getElementById('resultColumn');
+        resultColumn.innerHTML = ''; // Clear loading option
+        
+        headers.forEach(function(header) {
+          const option = document.createElement('option');
+          option.value = header;
+          option.textContent = header;
+          resultColumn.appendChild(option);
+        });
+      }).getSheetHeaders();
+      
+      // Set up event listeners
+      document.getElementById('autoMode').addEventListener('change', updateModeDisplay);
+      document.getElementById('fixedMode').addEventListener('change', updateModeDisplay);
+      document.getElementById('allRowsToggle').addEventListener('change', toggleRowsInput);
+      document.getElementById('promptTemplate').addEventListener('input', highlightPlaceholders);
+      
+      // Process button click handler
+      document.getElementById('processButton').addEventListener('click', processData);
+      
+      // Initial setup
+      updateModeDisplay();
+      highlightPlaceholders();
+    };
+    
+    function updateModeDisplay() {
+      const autoMode = document.getElementById('autoMode').checked;
+      const autoOptions = document.getElementById('autoOptions');
+      const rangeOptions = document.getElementById('rangeOptions');
+      
+      if (autoMode) {
+        autoOptions.classList.add('active');
+        rangeOptions.classList.remove('active');
+      } else {
+        autoOptions.classList.remove('active');
+        rangeOptions.classList.add('active');
+      }
+    }
+    
+    function toggleRowsInput() {
+      const allRows = document.getElementById('allRowsToggle').checked;
+      document.getElementById('numberOfRows').disabled = allRows;
+    }
+    
+    function highlightPlaceholders() {
+      const promptText = document.getElementById('promptTemplate').value;
+      const highlightedDiv = document.getElementById('highlightedPrompt');
+      
+      // Find all placeholders in the format {{ColumnName}}
+      const placeholderRegex = /{{([^{}]+)}}/g;
+      let highlightedText = promptText;
+      
+      // Replace placeholders with highlighted versions
+      highlightedText = highlightedText.replace(placeholderRegex, '<span class="placeholder">{{$1}}</span>');
+      
+      highlightedDiv.innerHTML = highlightedText || 'Enter your prompt template above...';
+    }
+    
+    function processData() {
+      // Get all configuration values
+      const headerRow = parseInt(document.getElementById('headerRow').value, 10);
+      const prompt = document.getElementById('promptTemplate').value;
+      const model = document.getElementById('model').value;
+      const resultColumn = document.getElementById('resultColumn').value;
+      const startMode = document.getElementById('autoMode').checked ? 'auto' : 'fixed';
+      
+      // Validate inputs
+      if (!headerRow || headerRow < 1) {
+        showStatus('Header row must be at least 1', false);
+        return;
+      }
+      
+      if (!prompt) {
+        showStatus('Please enter a prompt template', false);
+        return;
+      }
+      
+      if (!resultColumn) {
+        showStatus('Please select a column for results', false);
+        return;
+      }
+      
+      // Build configuration object
+      let config = {
+        headerRow,
+        prompt,
+        model,
+        resultColumn,
+        startMode
+      };
+      
+      if (startMode === 'auto') {
+        const allRows = document.getElementById('allRowsToggle').checked;
+        config.allRows = allRows;
+        
+        if (!allRows) {
+          const numberOfRows = parseInt(document.getElementById('numberOfRows').value, 10);
+          if (!numberOfRows || numberOfRows < 1) {
+            showStatus('Number of rows must be at least 1', false);
+            return;
+          }
+          config.numberOfRows = numberOfRows;
+        }
+      } else { // Fixed mode
+        const startRow = parseInt(document.getElementById('startRow').value, 10);
+        const endRow = parseInt(document.getElementById('endRow').value, 10);
+        
+        if (startRow >= endRow) {
+          showStatus('End row must be greater than start row', false);
+          return;
+        }
+        
+        config.startRange = `${startRow} to ${endRow}`;
+      }
+      
+      // Show loading indicator and disable button
+      document.getElementById('loadingIndicator').style.display = 'block';
+      document.getElementById('statusMessage').style.display = 'none';
+      document.getElementById('processButton').disabled = true;
+      
+      // Call server-side function
+      google.script.run
+        .withSuccessHandler(function(result) {
+          // Hide loading indicator and re-enable button
+          document.getElementById('loadingIndicator').style.display = 'none';
+          document.getElementById('processButton').disabled = false;
+          
+          // Show status message
+          showStatus(result.message, result.success);
+        })
+        .withFailureHandler(function(error) {
+          // Hide loading indicator and re-enable button
+          document.getElementById('loadingIndicator').style.display = 'none';
+          document.getElementById('processButton').disabled = false;
+          
+          // Show error message
+          showStatus('Error: ' + error.message, false);
+        })
+        .processDataWithAI(config);
+    }
+    
+    function showStatus(message, isSuccess) {
+      const statusElement = document.getElementById('statusMessage');
+      const statusTextElement = document.getElementById('statusText');
+      
+      statusTextElement.textContent = message;
+      statusElement.className = isSuccess ? 'status success' : 'status error';
+      statusElement.querySelector('.material-icons-round').textContent = isSuccess ? 'check_circle' : 'error';
+      statusElement.style.display = 'flex';
+    }
+  </script>
+  </body>
+</html>
